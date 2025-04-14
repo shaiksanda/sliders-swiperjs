@@ -1,0 +1,58 @@
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container{
+  position: relative;
+  width: 100%;
+  
+  
+  
+}
+
+.btn-left,
+.btn-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Ensure the buttons are vertically centered */
+  border: none;
+  color: black;
+  padding: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  z-index: 10; /* Ensure buttons are on top */
+}
+
+.btn-left {
+  left: 10px; /* Position to the left */
+}
+
+.btn-right {
+  right: 10px; /* Position to the right */
+}
+
+img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.slide-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightgrey;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.name{
+  font-weight: 600;
+  font-size: 24px;
+  color:magenta
+}
+.review{
+  font-size: 14px;
+  color:purple
+}
