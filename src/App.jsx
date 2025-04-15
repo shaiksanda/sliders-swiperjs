@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -26,7 +26,35 @@ const slides = [
 
 
 const App = () => {
-  const swiperRef=useRef(null)
+  const swiperRef = useRef(null)
+  const [isLeftHidden, setIsLeftHidden] = useState(true);  // Left arrow hidden initially
+  const [isRightHidden, setIsRightHidden] = useState(false); // Right arrow visible initially
+  //console.log(swiperRef.current.realIndex)
+  const handleNext = () => {
+    const newIndex = swiperRef.current.realIndex + 3;
+    
+    const totalSlides = swiperRef.current.slides.length;
+
+    if (newIndex < totalSlides) {
+      swiperRef.current?.slideTo(newIndex);
+      setIsLeftHidden(false);  // Show left arrow after moving away from the start
+    } else {
+      setIsRightHidden(true);  // Hide right arrow when at the end
+    }
+  };
+
+  const handlePrev = () => {
+    const newIndex = swiperRef.current.realIndex - 3;
+    
+
+    if (newIndex >= 0) {
+      swiperRef.current?.slideTo(newIndex);
+      setIsRightHidden(false);  // Show right arrow when we can move forward
+    } else {
+      setIsLeftHidden(true);  // Hide left arrow when at the start
+    }
+  };
+
   return (
     <div className='container'>
       <Swiper
@@ -34,12 +62,12 @@ const App = () => {
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         spaceBetween={20}
         slidesPerView={1}
-        speed={1000}
-        breakpoints={{300:{slidesPerView:1},600:{slidesPerView:2},960:{slidesPerView:3}}}
-        loop={true}
-        autoplay={{ delay: 3000 ,}}
+        speed={1500}
+        pagination={{ clickable: true, }}
+        breakpoints={{ 300: { slidesPerView: 1 }, 600: { slidesPerView: 2 }, 960: { slidesPerView: 3 } }}
+        loop={false}
         allowTouchMove={true}
-        simulateTouch={true} 
+        simulateTouch={true}
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
@@ -51,8 +79,25 @@ const App = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <button onClick={() => swiperRef.current?.slidePrev()} className='btn-left'><FaArrowLeft /></button>
-      <button onClick={() => swiperRef.current?.slideNext()} className='btn-right'><FaArrowRight /></button>
+      
+      <button
+        onClick={handlePrev}
+        className='btn-left'
+        style={{ display: isLeftHidden ? 'none' : 'block' }}
+      >
+        <FaArrowLeft />
+      </button>
+
+      {/* Right Arrow */}
+      <button
+        onClick={handleNext}
+        className='btn-right'
+        style={{ display: isRightHidden ? 'none' : 'block' }}
+      >
+        <FaArrowRight />
+      </button>
+
+
     </div>
   )
 }
