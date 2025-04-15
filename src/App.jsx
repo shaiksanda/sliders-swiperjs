@@ -62,9 +62,9 @@ const App = () => {
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         spaceBetween={20}
         slidesPerView={1}
-        speed={1500}
+        
         pagination={{ clickable: true, }}
-        breakpoints={{ 300: { slidesPerView: 1 }, 600: { slidesPerView: 2 }, 960: { slidesPerView: 3 } }}
+        breakpoints={{ 300: { slidesPerView: 1,speed:600 }, 600: { slidesPerView: 2,speed:900 }, 960: { slidesPerView: 3,speed:2500 } }}
         loop={false}
         allowTouchMove={true}
         simulateTouch={true}
